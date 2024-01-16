@@ -47,6 +47,8 @@ bt_navigator:
     odom_topic: /odom
     bt_loop_duration: 10
     default_server_timeout: 20
+    # Write the xml file path to run custom recovery behavior
+    
     # 'default_nav_through_poses_bt_xml' and 'default_nav_to_pose_bt_xml' are use defaults:
     # nav2_bt_navigator/navigate_to_pose_w_replanning_and_recovery.xml
     # nav2_bt_navigator/navigate_through_poses_w_replanning_and_recovery.xml
@@ -295,10 +297,14 @@ smoother_server:
 
 behavior_server:
   ros__parameters:
-    costmap_topic: local_costmap/costmap_raw
-    footprint_topic: local_costmap/published_footprint
+    local_costmap_topic: local_costmap/costmap_raw
+    local_footprint_topic: local_costmap/published_footprint
+    global_costmap_topic: global_costmap/costmap_raw
+    global_footprint_topic: global_costmap/published_footprint
+    # costmap_topic: local_costmap/costmap_raw
+    # footprint_topic: local_costmap/published_footprint
     cycle_frequency: 10.0
-    behavior_plugins: ["spin", "backup", "drive_on_heading", "assisted_teleop", "wait"]
+    behavior_plugins: ["spin", "backup", "drive_on_heading", "assisted_teleop", "wait", "send_sms"]
     spin:
       plugin: "nav2_behaviors/Spin"
     backup:
@@ -309,6 +315,12 @@ behavior_server:
       plugin: "nav2_behaviors/Wait"
     assisted_teleop:
       plugin: "nav2_behaviors/AssistedTeleop"
+    send_sms:
+      plugin: "ros2_amr/SendSms"
+    account_sid: "AC1cc62aae0ca57404e9defa293d76ba2d"
+    auth_token: "b8c6a73fcaaa1f7c058822b9d80166b6"
+    from_number: "+18777804236"
+    to_number: "+13652753649"
     global_frame: odom
     robot_base_frame: base_link
     transform_tolerance: 0.1

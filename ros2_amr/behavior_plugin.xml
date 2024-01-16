@@ -1,0 +1,5 @@
+<library path="ros2_amr_behavior_plugin">
+  <class name="ros2_amr/SendSms" type="ros2_amr::SendSms" base_class_type="nav2_core::Behavior">
+    <description>This is an example plugin which produces an SMS text message behavior.</description>
+  </class>
+</library>

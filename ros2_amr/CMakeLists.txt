@@ -7,12 +7,31 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+
+# Extra packages
+find_package(ros2_amr REQUIRED)
+find_package(pluginlib REQUIRED)
+find_package(nav2_core REQUIRED)
+find_package(rclcpp REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-install(DIRECTORY launch models worlds meshes config params
+install(DIRECTORY launch models worlds meshes config params ros2_amr action src include
   DESTINATION share/${PROJECT_NAME})
+
+
+# (HB) Add library for shared folder (same name as behavior_plugin.xml)
+add_library(ros2_amr_behavior_plugin SHARED
+  src/send_sms.cpp)
+
+# (HB) Add executables
+add_executable(send_sms src/send_sms.cpp)
+ament_target_dependencies(send_sms rclcpp)
+add_executable(twilio src/twilio.cpp)
+ament_target_dependencies(twilio rclcpp)
+
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -25,5 +44,7 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+pluginlib_export_plugin_description_file(nav2_core behavior_plugin.xml)
 
 ament_package()
