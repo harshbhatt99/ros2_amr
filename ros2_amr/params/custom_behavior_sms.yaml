@@ -317,10 +317,10 @@ behavior_server:
       plugin: "nav2_behaviors/AssistedTeleop"
     send_sms:
       plugin: "ros2_amr/SendSms"
-    account_sid: "AC1cc62aae0ca57404e9defa293d76ba2d"
-    auth_token: "b8c6a73fcaaa1f7c058822b9d80166b6"
-    from_number: "+18777804236"
-    to_number: "+13652753649"
+    account_sid: "id_from_account"
+    auth_token: "token_from_account"
+    from_number: "number_from_account"
+    to_number: "self_contact_number"
     global_frame: odom
     robot_base_frame: base_link
     transform_tolerance: 0.1
